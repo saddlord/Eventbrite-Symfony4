@@ -1,0 +1,107 @@
+{% extends "base.html.twig" %}
+{% block content %}
+{#
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{{ path('home') }}">HOME</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      {% if is_granted("ROLE_USER") %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          COMPTE
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Profil</a>
+          <a class="dropdown-item" href="#">Log out</a>
+        </div>
+      </li>
+      {% else %}
+          <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          REGISTER
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ path('app_register') }}">Sign up</a>
+          <a class="dropdown-item" href="#">Sign in</a>
+        </div>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+    {% block body %}{% endblock %}
+#}
+<nav class="navbar has-background-grey-darker is-dark">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{{ path('home') }}">
+                <p class="subtitle is-4 has-text-primary">
+                    <i class="fab fa-korvue"></i><b>EVENTbrite</b>
+                </p>
+            </a>
+
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        {% if app.user %}          
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="{{ path('created_event') }}">
+                    Created by Me
+                </a>
+
+                <a class="navbar-item" href="{{ path('joined_event') }}">
+                    Joined events
+                </a>
+                <a class="navbar-item" href="{{ path('creation') }}">
+                    Create Event
+                </a>
+            </div>
+        {% endif %}  
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        {% if app.user %}
+                            <a class="button is-primary is-small" href="{{ path('profile') }}">
+                                <span class="icon"><i class="fas fa-user-circle"></i></span>
+                                <strong>{{ app.user.username }}</strong>
+                            </a>
+                            <a class="button is-light is-small" href="{{ path('app_logout') }}">
+                                Déconnexion
+                            </a>
+                        {% else %}
+                            <a class="button is-primary is-small" href="{{ path('app_register') }}">
+                                <strong>Inscription</strong>
+                            </a>
+                            <a class="button is-light is-small" href="{{ path('app_login') }}">
+                                <strong>Connexion</strong>
+                            </a>
+                        {% endif %}
+
+                        {#{% if is_granted("ROLE_EDITOR") %}
+                            <a class="button is-primary is-small" href="{{ path('admin_dashboard') }}">
+                                <strong>Back-Office</strong>
+                            </a>
+                        {% endif %}#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {# Bloc qui contiendra le contenu de chaque page #}
+    {% block body %}{% endblock %}
+
+{% endblock %}

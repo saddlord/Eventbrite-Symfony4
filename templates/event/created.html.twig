@@ -1,0 +1,41 @@
+{% extends '_template.html.twig' %}
+
+{% block title %}Hello EventController!{% endblock %}
+
+{% block body %}
+<div class="section">
+        <h1 class="title">Events by me</h1>
+        <table class="table is-fullwidth">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>City</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.title }}</td>
+                    <td>{{ event.description }}</td>
+                    <td>{{ event.city }}</td>
+                    <td>
+                    {% if is_granted('EDIT', event) %}
+                        <div class="buttons are-small">
+                            <a href="{{ path('event_edit', {id: event.id}) }}" class="button is-info">
+                                edit
+                            </a>
+                    {% endif %}
+                    {% if is_granted('DELETE', event) %}
+                            <a href="{{ path('event_delete', {id: event.id}) }}" class="button is-danger">
+                                delete
+                            </a>
+                    {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
